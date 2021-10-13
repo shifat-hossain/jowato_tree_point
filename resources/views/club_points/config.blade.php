@@ -8,7 +8,7 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0 h6">{{translate('Convert Point To Wallet')}}</h5>
+                    <h5 class="mb-0 h6">{{translate('Convert Point To Tree')}}</h5>
                 </div>
                 <div class="card-body">
                     <form class="form-horizontal" action="{{ route('point_convert_rate_store') }}" method="POST">
@@ -16,7 +16,7 @@
                         <input type="hidden" name="type" value="club_point_convert_rate">
                         <div class="form-group row">
                             <div class="col-lg-4">
-                                <label class="col-from-label">{{translate('Set Point For ')}} {{ single_price(1) }}</label>
+                                <label class="col-from-label">{{translate('Set Point For 1 Tree') }}</label>
                             </div>
                             <div class="col-lg-5">
                                 <input type="number" min="0" step="0.01" class="form-control" name="value" @if ($club_point_convert_rate != null) value="{{ $club_point_convert_rate->value }}" @endif placeholder="100" required>
@@ -29,7 +29,11 @@
 								<button type="submit" class="btn btn-sm btn-primary">{{translate('Save')}}</button>
 						</div>
                     </form>
-                    <i class="fs-12"><b>{{ translate('Note: You need to activate wallet option first before using club point addon.') }}</b></i>
+                    {{-- <i class="fs-12">
+                        <b>
+                            {{ translate('Note: You need to activate wallet option first before using club point addon.') }}
+                        </b>
+                    </i> --}}
                 </div>
             </div>
         </div>

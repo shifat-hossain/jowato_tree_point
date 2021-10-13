@@ -21,7 +21,7 @@
                         <div class="col-md-7 mx-auto">
                             <div class="bg-grad-1 text-white rounded-lg overflow-hidden">
                                 <div class="px-3 pt-3 pb-3">
-                                    <div class="h3 fw-700 text-center">{{ $club_point_convert_rate }} {{ translate(' Points') }} = {{ single_price(1) }} {{ translate('Wallet Money') }}</div>
+                                    <div class="h3 fw-700 text-center">{{ $club_point_convert_rate }} {{ translate(' Points') }} = {{ translate('1 Tree') }}</div>
                                     <div class="opacity-50 text-center">{{ translate('Exchange Rate') }}</div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                         <th data-breakpoints="lg">{{translate('Points')}}</th>
                                         <th data-breakpoints="lg">{{translate('Converted')}}</th>
                                         <th data-breakpoints="lg">{{translate('Date') }}</th>
-                                        <th class="text-right">{{translate('Action')}}</th>
+                                        {{-- <th class="text-right">{{translate('Action')}}</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,13 +66,13 @@
                                             </td>
                                             <td>{{ date('d-m-Y', strtotime($club_point->created_at)) }}</td>
 
-                                            <td class="text-right">
+                                            {{-- <td class="text-right">
                                                 @if ($club_point->convert_status == 0)
                                                     <button onclick="convert_point({{ $club_point->id }})" class="btn btn-sm btn-styled btn-primary">{{translate('Convert Now')}}</button>
                                                 @else
                                                   <span class="badge badge-inline badge-success">{{ translate('Done') }}</span>
                                                 @endif
-                                            </td>
+                                            </td> --}}
 
                                         </tr>
                                     @endforeach

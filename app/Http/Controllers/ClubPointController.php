@@ -99,7 +99,6 @@ class ClubPointController extends Controller
             $club_point->points += $total_pts;
         }
         $club_point->order_id = $order->id;
-        $club_point->convert_status = 0;
         $club_point->save();
 
         foreach ($order->orderDetails as $key => $orderDetail) {
@@ -111,31 +110,36 @@ class ClubPointController extends Controller
         }
     }
 
+    public function set_tree_to_customer($id){
+        $club_point = ClubPoint::where('id', decrypt($id))->first();
+        return view('club_points.set_tree_to_customer', compact('club_point'));
+    }
+
     public function club_point_detail($id)
     {
         $club_point_details = ClubPointDetail::where('club_point_id', decrypt($id))->paginate(12);
         return view('club_points.club_point_details', compact('club_point_details'));
     }
 
-    public function convert_point_into_wallet(Request $request)
-    {
-        $club_point_convert_rate = BusinessSetting::where('type', 'club_point_convert_rate')->first()->value;
-        $club_point = ClubPoint::findOrFail($request->el);
-        $wallet = new Wallet;
-        $wallet->user_id = Auth::user()->id;
-        $wallet->amount = floatval($club_point->points / $club_point_convert_rate);
-        $wallet->payment_method = 'Club Point Convert';
-        $wallet->payment_details = 'Club Point Convert';
-        $wallet->save();
-        $user = Auth::user();
-        $user->balance = $user->balance + floatval($club_point->points / $club_point_convert_rate);
-        $user->save();
-        $club_point->convert_status = 1;
-        if ($club_point->save()) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
+    // public function convert_point_into_wallet(Request $request)
+    // {
+    //     $club_point_convert_rate = BusinessSetting::where('type', 'club_point_convert_rate')->first()->value;
+    //     $club_point = ClubPoint::findOrFail($request->el);
+    //     $wallet = new Wallet;
+    //     $wallet->user_id = Auth::user()->id;
+    //     $wallet->amount = floatval($club_point->points / $club_point_convert_rate);
+    //     $wallet->payment_method = 'Club Point Convert';
+    //     $wallet->payment_details = 'Club Point Convert';
+    //     $wallet->save();
+    //     $user = Auth::user();
+    //     $user->balance = $user->balance + floatval($club_point->points / $club_point_convert_rate);
+    //     $user->save();
+    //     $club_point->convert_status = 1;
+    //     if ($club_point->save()) {
+    //         return 1;
+    //     }
+    //     else {
+    //         return 0;
+    //     }
+    // }
 }

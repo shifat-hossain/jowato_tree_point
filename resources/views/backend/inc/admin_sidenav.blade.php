@@ -689,6 +689,11 @@
                                         <span class="aiz-side-nav-text">{{translate('User Points')}}</span>
                                     </a>
                                 </li>
+                                <li class="aiz-side-nav-item">
+                                    <a href="{{route('trees.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['trees.index'])}}">
+                                        <span class="aiz-side-nav-text">{{translate('All Trees')}}</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     @endif

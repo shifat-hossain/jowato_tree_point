@@ -10,16 +10,16 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{translate('Order Code')}}</th>
+                                <th>{{translate('Code')}}</th>
                                 <th  data-breakpoints="lg">{{translate('Customer Name')}}</th>
-                                <th>{{translate('Points')}}</th>
-                                <th data-breakpoints="lg">{{translate('Convert Tree')}}</th>
-                                <th data-breakpoints="lg">{{translate('Earned At')}}</th>
+                                <th>{{translate('Latitude')}}</th>
+                                <th data-breakpoints="lg">{{translate('Longitude')}}</th>
+                                <th data-breakpoints="lg">{{translate('Planted At')}}</th>
                                 <th class="text-right" width="10%">{{translate('Options')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($club_points as $key => $club_point)
+                            @foreach($trees as $key => $tree)
                                 <tr>
                                     <td>{{ ($key+1) + ($club_points->currentPage() - 1)*$club_points->perPage() }}</td>
                                     <td>
@@ -60,7 +60,7 @@
                         </tbody>
                     </table>
                     <div class="aiz-pagination">
-                        {{ $club_points->appends(request()->input())->links() }}
+                        {{ $trees->appends(request()->input())->links() }}
                     </div>
                 </div>
             </div>
