@@ -823,18 +823,15 @@ if (!function_exists('purchase_payment_done')) {
 if (!function_exists('calculateCommissionAffilationClubPoint')) {
     function calculateCommissionAffilationClubPoint($order)
     {
-        $commissionController = new CommissionController();
-        $commissionController->calculateCommission($order);
+        (new CommissionController)->calculateCommission($order);
 
         if (addon_is_activated('affiliate_system')) {
-            $affiliateController = new AffiliateController;
-            $affiliateController->processAffiliatePoints($order);
+            (new AffiliateController)->processAffiliatePoints($order);
         }
 
         if (addon_is_activated('club_point')) {
             if ($order->user != null) {
-                $clubpointController = new ClubPointController;
-                $clubpointController->processClubPoints($order);
+                (new ClubPointController)->processClubPoints($order);
             }
         }
 

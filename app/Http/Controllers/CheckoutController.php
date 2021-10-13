@@ -18,7 +18,6 @@ use App\Coupon;
 use App\CouponUsage;
 use App\Address;
 use App\CombinedOrder;
-use App\CommissionHistory;
 use Session;
 use App\Utility\PayhereUtility;
 use App\Utility\NotificationUtility;
@@ -35,8 +34,7 @@ class CheckoutController extends Controller
     public function checkout(Request $request)
     {
         if ($request->payment_option != null) {
-            $orderController = new OrderController;
-            $orderController->store($request);
+            (new OrderController)->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
 
@@ -59,18 +57,37 @@ class CheckoutController extends Controller
                 } elseif ($request->payment_option == 'proxypay') {
                     //$proxy = new ProxypayController;
                     //return $proxy->create_reference($request);
+                } elseif ($request->payment_option == 'voguepay') {
+                    $voguePay = new VoguePayController;
+                    return $voguePay->customer_showForm();
+                } elseif ($request->payment_option == 'ngenius') {
+                    $ngenius = new NgeniusController();
+                    return $ngenius->pay();
+                } elseif ($request->payment_option == 'iyzico') {
+                    $iyzico = new IyzicoController();
+                    return $iyzico->pay();
+                } elseif ($request->payment_option == 'nagad') {
+                    $nagad = new NagadController;
+                    return $nagad->getSession();
+                } elseif ($request->payment_option == 'bkash') {
+                    $bkash = new BkashController;
+                    return $bkash->pay();
+                } elseif ($request->payment_option == 'aamarpay') {
+                    $aamarpay = new AamarpayController;
+                    return $aamarpay->index();
+                } elseif ($request->payment_option == 'flutterwave') {
+                    $flutterwave = new FlutterwaveController();
+                    return $flutterwave->pay();
+                } elseif ($request->payment_option == 'mpesa') {
+                    $mpesa = new MpesaController();
+                    return $mpesa->pay();
                 } elseif ($request->payment_option == 'paystack') {
-                    if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null &&
-                        \App\Addon::where('unique_identifier', 'otp_system')->first()->activated &&
-                        !Auth::user()->email) {
+                    if (addon_is_activated('otp_system') && !Auth::user()->email) {
                         flash(translate('Your email should be verified before order'))->warning();
                         return redirect()->route('cart')->send();
                     }
                     $paystack = new PaystackController;
                     return $paystack->redirectToGateway($request);
-                } elseif ($request->payment_option == 'voguepay') {
-                    $voguePay = new VoguePayController;
-                    return $voguePay->customer_showForm();
                 } elseif ($request->payment_option == 'payhere') {
                     $combined_order = CombinedOrder::findOrFail($request->session()->get('combined_order_id'));
 
@@ -91,27 +108,6 @@ class CheckoutController extends Controller
                     $amount = $combined_order->grand_total;
 
                     return PayfastUtility::create_checkout_form($combined_order_id, $amount);
-                } else if ($request->payment_option == 'ngenius') {
-                    $ngenius = new NgeniusController();
-                    return $ngenius->pay();
-                } else if ($request->payment_option == 'iyzico') {
-                    $iyzico = new IyzicoController();
-                    return $iyzico->pay();
-                } else if ($request->payment_option == 'nagad') {
-                    $nagad = new NagadController;
-                    return $nagad->getSession();
-                } else if ($request->payment_option == 'bkash') {
-                    $bkash = new BkashController;
-                    return $bkash->pay();
-                } else if ($request->payment_option == 'aamarpay') {
-                    $aamarpay = new AamarpayController;
-                    return $aamarpay->index();
-                } else if ($request->payment_option == 'flutterwave') {
-                    $flutterwave = new FlutterwaveController();
-                    return $flutterwave->pay();
-                } else if ($request->payment_option == 'mpesa') {
-                    $mpesa = new MpesaController();
-                    return $mpesa->pay();
                 } elseif ($request->payment_option == 'paytm') {
                     if (Auth::user()->phone == null) {
                         flash('Please add phone number to your profile')->warning();
