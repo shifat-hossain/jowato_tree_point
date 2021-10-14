@@ -22,6 +22,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
     Route::get('club-point-details/{id}', 'ClubPointController@club_point_detail')->name('club_point.details');
     Route::post('set-club-points/update/{id}', 'ClubPointController@update_product_point')->name('product_point.update');
     Route::post('club-point-convert-rate/store', 'ClubPointController@convert_rate_store')->name('point_convert_rate_store');
+    Route::post('store-convert-donate-to-point/store', 'ClubPointController@store_convert_donate_to_point')->name('store-convert-donate-to-point');
     Route::resource('trees', 'TreeController');
     Route::get('/trees/edit/{id}', 'TreeController@edit')->name('trees.edit');
 });

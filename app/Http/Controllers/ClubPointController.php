@@ -75,6 +75,23 @@ class ClubPointController extends Controller
         return redirect()->route('set_product_points');
     }
 
+    public function store_convert_donate_to_point(Request $request)
+    {
+        $donate_amount_convert_rate = BusinessSetting::where('type', $request->type)->first();
+        if ($donate_amount_convert_rate != null) {
+            $donate_amount_convert_rate->value = $request->value;
+        }
+        else {
+            $donate_amount_convert_rate = new BusinessSetting;
+            $donate_amount_convert_rate->type = $request->type;
+            $donate_amount_convert_rate->value = $request->value;
+        }
+        $donate_amount_convert_rate->save();
+
+        flash(translate('Donate convert to point has been updated successfully'))->success();
+        return redirect()->route('club_points.configs');
+    }
+
     public function convert_rate_store(Request $request)
     {
         $club_point_convert_rate = BusinessSetting::where('type', $request->type)->first();
