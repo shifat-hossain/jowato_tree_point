@@ -112,6 +112,7 @@ Route::group(['prefix' => 'checkout', 'middleware' => ['user', 'verified', 'unba
     Route::get('/payment-select', 'CheckoutController@get_payment_info')->name('checkout.payment_info');
     Route::post('/apply_coupon_code', 'CheckoutController@apply_coupon_code')->name('checkout.apply_coupon_code');
     Route::post('/remove_coupon_code', 'CheckoutController@remove_coupon_code')->name('checkout.remove_coupon_code');
+    Route::post('/apply-donate', 'CheckoutController@apply_donate')->name('checkout.apply_donate');
     //Club point
     Route::post('/apply-club-point', 'CheckoutController@apply_club_point')->name('checkout.apply_club_point');
     Route::post('/remove-club-point', 'CheckoutController@remove_club_point')->name('checkout.remove_club_point');

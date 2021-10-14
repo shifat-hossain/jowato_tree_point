@@ -104,6 +104,10 @@
             width: 100%;
             height: 250px;
         }
+        #tree_location_map{
+            width: 100%;
+            height: 250px;
+        }
 
         .pac-container { z-index: 100000; }
     </style>

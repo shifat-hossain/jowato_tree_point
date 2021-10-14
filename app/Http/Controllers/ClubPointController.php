@@ -9,6 +9,8 @@ use App\ClubPoint;
 use App\Product;
 use App\Wallet;
 use App\Order;
+use App\User;
+use App\Tree;
 use Auth;
 
 class ClubPointController extends Controller
@@ -94,10 +96,28 @@ class ClubPointController extends Controller
         $club_point = new ClubPoint;
         $club_point->user_id = $order->user_id;
         $club_point->points = 0;
+
+        $user = User::findOrFail($order->user_id);
         foreach ($order->orderDetails as $key => $orderDetail) {
             $total_pts = ($orderDetail->product->earn_point) * $orderDetail->quantity;
             $club_point->points += $total_pts;
+            $user->tree_points += $total_pts;
         }
+
+        $user->save();
+        if($user->tree_points >= get_setting('club_point_convert_rate')) {
+            for($i = 0; $i < ($user->tree_points / get_setting('club_point_convert_rate')); $i++) {
+                $tree           = new Tree;
+                $tree->user_id  = $user->id;
+                $tree->code     = time(). $i .$user->id;
+
+                $tree->save();
+
+                $user->tree_points -= get_setting('club_point_convert_rate');
+                $user->save();
+            }
+        }
+
         $club_point->order_id = $order->id;
         $club_point->save();
 
@@ -108,11 +128,6 @@ class ClubPointController extends Controller
             $club_point_detail->point = ($orderDetail->product->earn_point) * $orderDetail->quantity;
             $club_point_detail->save();
         }
-    }
-
-    public function set_tree_to_customer($id){
-        $club_point = ClubPoint::where('id', decrypt($id))->first();
-        return view('club_points.set_tree_to_customer', compact('club_point'));
     }
 
     public function club_point_detail($id)

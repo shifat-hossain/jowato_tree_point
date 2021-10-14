@@ -330,6 +330,9 @@ class OrderController extends Controller
             $order->combined_order_id = $combined_order->id;
             $order->user_id = Auth::user()->id;
             $order->shipping_address = json_encode($shipping_info);
+            if($request->donate_amount) {
+                $order->donate_amount = $request->donate_amount / count($seller_products);
+            }
 
             $order->payment_type = $request->payment_option;
             $order->delivery_viewed = '0';
@@ -405,7 +408,7 @@ class OrderController extends Controller
                 }
             }
 
-            $order->grand_total = $subtotal + $tax + $shipping;
+            $order->grand_total = $subtotal + $tax + $shipping + $order->donate_amount;
 
             if ($seller_product[0]->coupon_code != null) {
                 // if (Session::has('club_point')) {

@@ -360,6 +360,16 @@ class CheckoutController extends Controller
         return view('frontend.partials.cart_summary', compact('coupon', 'carts', 'shipping_info'));
     }
 
+    public function apply_donate(Request $request) {
+        $total_amount = 0;
+        if (addon_is_activated('club_point')){
+            $total_amount = $request->total_amount;
+            $total_amount += $request->donate;
+        }
+
+        return single_price($total_amount);
+    }
+
     public function apply_club_point(Request $request) {
         if (addon_is_activated('club_point')){
 

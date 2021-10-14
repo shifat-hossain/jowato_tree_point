@@ -22,12 +22,15 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
     Route::get('club-point-details/{id}', 'ClubPointController@club_point_detail')->name('club_point.details');
     Route::post('set-club-points/update/{id}', 'ClubPointController@update_product_point')->name('product_point.update');
     Route::post('club-point-convert-rate/store', 'ClubPointController@convert_rate_store')->name('point_convert_rate_store');
-    Route::get('set-tree/{id}', 'ClubPointController@set_tree_to_customer')->name('set-tree');
-    Route::get('trees/index', 'TreeController@index')->name('trees.index');
+    Route::resource('trees', 'TreeController');
+    Route::get('/trees/edit/{id}', 'TreeController@edit')->name('trees.edit');
 });
 
 //FrontEnd
 Route::group(['middleware' => ['user', 'verified']], function(){
+    Route::get('user/trees/index', 'TreeController@index')->name('user.trees.index');
+    Route::get('tree-location/{id}', 'TreeController@tree_location')->name('user.trees.tree-location');
+
     Route::get('earning-points', 'ClubPointController@userpoint_index')->name('earnng_point_for_user');
     Route::post('convert-point-into-wallet', 'ClubPointController@convert_point_into_wallet')->name('convert_point_into_wallet');
 });

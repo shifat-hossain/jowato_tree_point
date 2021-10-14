@@ -5,7 +5,7 @@
     <div class="aiz-titlebar text-left mt-2 mb-3">
         <div class="row align-items-center">
             <div class="col-auto">
-                <h1 class="h3">{{translate('Add Tree For Customer')}}</h1>
+                <h1 class="h3">{{translate('Update Tree')}}</h1>
             </div>
         </div>
     </div>
@@ -14,18 +14,20 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">
-                        {{translate('Tree Info')}}
+                        {{translate('Update Tree Info')}}
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form class="form-horizontal" action="" method="POST">
+                    <form class="form-horizontal" action="{{route('trees.update', $tree->id)}}" method="POST">
                         @csrf
+                        <input name="_method" type="hidden" value="PATCH">
+
                         <div class="form-group row">
                             <div class="col-lg-3">
                                 <label class="col-from-label">{{translate('Tree Name')}}</label>
                             </div>
                             <div class="col-lg-8">
-                                <input type="number" min="0" step="0.01" class="form-control" name="name" placeholder="{{translate('Tree name')}}">
+                                <input type="text" class="form-control" name="name" placeholder="{{translate('Tree name')}}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -33,15 +35,15 @@
                                 <label class="col-from-label">{{translate('Latitude')}}</label>
                             </div>
                             <div class="col-lg-8">
-                                <input type="number" class="form-control" name="latitude" placeholder="{{translate('Latitude')}}" required>
+                                <input type="text" class="form-control" name="latitude" placeholder="{{translate('Latitude')}}" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-3">
-                                <label class="col-from-label">{{translate('Langittude')}}</label>
+                                <label class="col-from-label">{{translate('Longitude')}}</label>
                             </div>
                             <div class="col-lg-8">
-                                <input type="number" class="form-control" name="langitude" placeholder="{{translate('Langittude')}}" required>
+                                <input type="text" class="form-control" name="longitude" placeholder="{{translate('Longitude')}}" required>
                             </div>
                         </div>
                         <div class="form-group mb-0 text-right">

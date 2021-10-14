@@ -342,6 +342,13 @@
                                 <span class="aiz-side-nav-text">{{translate('Earning Points')}}</span>
                             </a>
                         </li>
+
+                        <li class="aiz-side-nav-item">
+                            <a href="{{ route('user.trees.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['user.trees.index'])}}">
+                                <i class="las la-seedling aiz-side-nav-icon"></i>
+                                <span class="aiz-side-nav-text">{{translate('Your Trees')}}</span>
+                            </a>
+                        </li>
                     @endif
 
                     @if (addon_is_activated('affiliate_system') && Auth::user()->affiliate_user != null && Auth::user()->affiliate_user->status)

@@ -46,11 +46,6 @@
                                     </td>
                                     <td>{{ $club_point->created_at }}</td>
                                     <td class="text-right">
-                                        @if ($club_point->points >= get_setting('club_point_convert_rate'))
-                                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('set-tree', encrypt($club_point->id))}}" title="{{ translate('Set Tree') }}">
-                                                <i class="las la-tree"></i>
-                                            </a>
-                                        @endif
         								<a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('club_point.details', encrypt($club_point->id))}}" title="{{ translate('View') }}">
         									<i class="las la-eye"></i>
         								</a>

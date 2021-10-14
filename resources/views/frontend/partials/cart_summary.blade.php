@@ -122,50 +122,29 @@
                     }
                 @endphp
 
+                <tr class="cart-donate">
+                    <th><span class="strong-600">{{translate('Donate')}}</span></th>
+                    <td class="text-right">
+                        <form class="" id="apply-donate-form" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="total_amount" value="{{ $total }}">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="donate" onkeydown="return event.key != 'Enter';" placeholder="{{translate('Want to donate? Enter here')}}" required>
+                                <div class="input-group-append">
+                                    <button type="button" id="donate-apply" class="btn btn-primary">{{translate('Apply')}}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
                 <tr class="cart-total">
                     <th><span class="strong-600">{{translate('Total')}}</span></th>
                     <td class="text-right">
-                        <strong><span>{{ single_price($total) }}</span></strong>
+                        <strong><span id="total_amount">{{ single_price($total) }}</span></strong>
                     </td>
                 </tr>
             </tfoot>
         </table>
-
-        @if (addon_is_activated('club_point'))
-            @if (Session::has('club_point'))
-                <div class="mt-3">
-                    <form class="" action="{{ route('checkout.remove_club_point') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="input-group">
-                            <div class="form-control">{{ Session::get('club_point')}}</div>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary">{{translate('Remove Redeem Point')}}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            @else
-                {{--@if(Auth::user()->point_balance > 0)
-                    <div class="mt-3">
-                        <p>
-                            {{translate('Your club point is')}}:
-                            @if(isset(Auth::user()->point_balance))
-                                {{ Auth::user()->point_balance }}
-                            @endif
-                        </p>
-                        <form class="" action="{{ route('checkout.apply_club_point') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="point" placeholder="{{translate('Enter club point here')}}" required>
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary">{{translate('Redeem')}}</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                @endif--}}
-            @endif
-        @endif
 
         @if (Auth::check() && get_setting('coupon_system') == 1)
             @if ($carts[0]['discount'] > 0)

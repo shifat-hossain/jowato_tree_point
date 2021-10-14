@@ -48,6 +48,7 @@
                 <form action="{{ route('payment.checkout') }}" class="form-default" role="form" method="POST" id="checkout-form">
                     @csrf
                     <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
+                    <input type="hidden" name="donate_amount" id="donate_amount" value="">
 
                     <div class="card shadow-sm border-0 rounded">
                         <div class="card-header p-3">
@@ -431,6 +432,13 @@
             toggleManualPaymentData($('input[name=payment_option]:checked').data('id'));
         });
 
+        $(document).on("keyup", "#donate", function() {
+            var total_amount = $("#total_amount").html().replace(/[^\d.-]/g, '');
+            total_amount = parseFloat(total_amount) + parseFloat($(this).val());
+            $("#total_amount").html("" + total_amount);
+            console.log(total_amount);
+        })
+
         function use_wallet(){
             $('input[name=payment_option]').val('wallet');
             if($('#agree_checkbox').is(":checked")){
@@ -455,6 +463,26 @@
                 $('#manual_payment_description').html($('#manual_payment_info_'+id).html());
             }
         }
+
+        $(document).on("click", "#donate-apply",function() {
+            var form_data = new FormData($('#apply-donate-form')[0]);
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: "POST",
+                url: "{{route('checkout.apply_donate')}}",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data, textStatus, jqXHR) {
+                    $("#total_amount").html(data);
+                    $("#donate_amount").val($('[name=donate]').val());
+                }
+            })
+        });
 
         $(document).on("click", "#coupon-apply",function() {
             var data = new FormData($('#apply-coupon-form')[0]);

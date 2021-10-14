@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tree;
+use App\Tree;
 use Illuminate\Http\Request;
+use Auth;
 
 class TreeController extends Controller
 {
@@ -14,8 +15,14 @@ class TreeController extends Controller
      */
     public function index()
     {
-        $trees = Tree::latest()->paginate(15);
-        return view('club_points.trees.index', compact('trees'));
+        if(Auth::user()->user_type == 'admin'){
+            $trees = Tree::latest()->paginate(15);
+            return view('club_points.trees.index', compact('trees'));
+        } else {
+            $trees = Tree::where('user_id', Auth::user()->id)->latest()->paginate(15);
+            return view('club_points.frontend.trees.index', compact('trees'));
+        }
+        
     }
 
     /**
@@ -56,9 +63,10 @@ class TreeController extends Controller
      * @param  \App\Models\Tree  $tree
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tree $tree)
+    public function edit($id)
     {
-        //
+        $tree = Tree::where('id', decrypt($id))->first();
+        return view('club_points.trees.edit', compact('tree'));
     }
 
     /**
@@ -70,7 +78,16 @@ class TreeController extends Controller
      */
     public function update(Request $request, Tree $tree)
     {
-        //
+        $tree               = $tree;
+        $tree->name         = $request->name;
+        $tree->latitude     = $request->latitude;
+        $tree->longitude    = $request->longitude;
+        $tree->planted_at   = date('Y-m-d H:i:s');
+        
+        $tree->save();
+
+        flash(translate('Tree info has been updated successfully'))->success();
+        return redirect()->route('trees.index');
     }
 
     /**
@@ -82,5 +99,13 @@ class TreeController extends Controller
     public function destroy(Tree $tree)
     {
         //
+    }
+
+    public function tree_location($id)
+    {
+        $data['tree_data'] = Tree::findOrFail($id);
+        
+        $returnHTML = view('club_points.frontend.trees.tree_location_modal', $data)->render();
+        return response()->json(array('data' => $data, 'html'=>$returnHTML));
     }
 }
