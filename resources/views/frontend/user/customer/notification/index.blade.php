@@ -29,6 +29,23 @@
                                 </div>
                             </div>
                         </li>
+                    @elseif($notification->type == 'App\Notifications\TreeNotification')
+                        <li class="list-group-item d-flex justify-content-between align-items- py-3">
+                            <div class="media text-inherit">
+                                <div class="media-body">
+                                    <p class="mb-1 text-truncate-2">
+                                        {{translate('Tree: ')}}
+                                        <a href="http://www.google.com/maps/place/{{ $notification->data['latitude'] }},{{ $notification->data['longitude'] }}" target="_blank">
+                                            {{$notification->data['tree_code']}}
+                                        </a>
+                                        {{translate(' has been planted')}}
+                                    </p>
+                                    <small class="text-muted">
+                                        {{ date("F j Y, g:i a", strtotime($notification->created_at)) }}
+                                    </small>
+                                </div>
+                            </div>
+                        </li>
                     @endif
 
                 @empty

@@ -116,6 +116,15 @@
                                                                 </a>
                                                             @endif
                                                         @endif
+                                                    @elseif($notification->type == 'App\Notifications\TreeNotification')
+                                                        @if(Auth::user()->user_type == 'customer')
+                                                            <a href="http://www.google.com/maps/place/{{ $notification->data['latitude'] }},{{ $notification->data['longitude'] }}" target="_blank" class="text-reset">
+                                                                <span class="ml-2">
+                                                                    {{translate('Tree code: ')}} {{ $notification->data['tree_code'] }} 
+                                                                    {{ translate('has been planted')}}
+                                                                </span>
+                                                            </a>
+                                                        @endif
                                                     @endif
                                                 </li>
                                             @empty

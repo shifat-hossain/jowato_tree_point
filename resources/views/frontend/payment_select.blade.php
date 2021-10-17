@@ -466,23 +466,34 @@
 
         $(document).on("click", "#donate-apply",function() {
             var form_data = new FormData($('#apply-donate-form')[0]);
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                method: "POST",
-                url: "{{route('checkout.apply_donate')}}",
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data, textStatus, jqXHR) {
-                    $("#total_amount").html(data);
-                    $("#donate_amount").val($('[name=donate]').val());
-                }
-            })
+            $donate_val = isNumeric($('[name=donate]').val());
+            
+            if($donate_val) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "POST",
+                    url: "{{route('checkout.apply_donate')}}",
+                    data: form_data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data, textStatus, jqXHR) {
+                        $("#total_amount").html(data);
+                        $("#donate_amount").val($('[name=donate]').val());
+                    }
+                })
+            } else {
+                AIZ.plugins.notify('danger','{{ translate('Donate should be a number') }}');
+            }
         });
+
+        function isNumeric(str) {
+            if (typeof str != "string") return false // we only process strings!  
+            return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+                    !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+        }
 
         $(document).on("click", "#coupon-apply",function() {
             var data = new FormData($('#apply-coupon-form')[0]);

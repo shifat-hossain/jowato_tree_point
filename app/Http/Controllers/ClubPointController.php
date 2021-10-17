@@ -116,7 +116,8 @@ class ClubPointController extends Controller
 
         $user = User::findOrFail($order->user_id);
         foreach ($order->orderDetails as $key => $orderDetail) {
-            $total_pts = ($orderDetail->product->earn_point) * $orderDetail->quantity;
+            $total_pts = ($orderDetail->product->earn_point * $orderDetail->quantity) + 
+                            ($order->donate_amount / get_setting('donate_amount_convert_rate'));
             $club_point->points += $total_pts;
             $user->tree_points += $total_pts;
         }
@@ -133,6 +134,7 @@ class ClubPointController extends Controller
                 $user->tree_points -= get_setting('club_point_convert_rate');
                 $user->save();
             }
+
         }
 
         $club_point->order_id = $order->id;

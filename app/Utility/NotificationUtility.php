@@ -9,6 +9,7 @@ use App\Http\Controllers\OTPVerificationController;
 use Mail;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\OrderNotification;
+use App\Notifications\TreeNotification;
 use App\FirebaseNotification;
 
 class NotificationUtility
@@ -115,5 +116,20 @@ class NotificationUtility
         $firebase_notification->receiver_id = $req->user_id;
 
         $firebase_notification->save();
+    }
+
+    public static function sendTreeNotification($tree)
+    {
+        $users = User::findOrFail($tree->user_id);
+        // $users = User::findMany([$order->user->id, \App\User::where('user_type', 'admin')->first()->id]);
+
+        $tree_notification              = array();
+        $tree_notification['user_id']   = $tree->user_id;
+        $tree_notification['tree_id']   = $tree->id;
+        $tree_notification['tree_code'] = $tree->code;
+        $tree_notification['latitude']  = $tree->latitude;
+        $tree_notification['longitude'] = $tree->longitude;
+
+        Notification::send($users, new TreeNotification($tree_notification));
     }
 }

@@ -51,9 +51,9 @@
                                                 <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="http://www.google.com/maps/place/{{ $tree->latitude }},{{ $tree->longitude }}" target="_blank" title="{{ translate('See Location') }}">
                                                     <i class="las la-search-location"></i>
                                                 </a>
-                                                {{-- <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('club_point.details', encrypt($tree->id))}}" title="{{ translate('View') }}">
-                                                    <i class="las la-eye"></i>
-                                                </a> --}}
+                                                <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="{{ route('user.trees.certificate-download', $tree->id) }}" title="{{ translate('Download Certificate') }}">
+                                                    <i class="las la-download"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

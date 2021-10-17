@@ -208,6 +208,14 @@
                     </tr>
                     <tr>
                         <td>
+                            <strong class="text-muted">{{translate('Donation')}} :</strong>
+                        </td>
+                        <td>
+                            {{ single_price($order->donate_amount) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <strong class="text-muted">{{translate('TOTAL')}} :</strong>
                         </td>
                         <td class="text-muted h5">

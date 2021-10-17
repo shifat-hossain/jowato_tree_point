@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Tree;
 use Illuminate\Http\Request;
+use App\Tree;
+use App\Utility\NotificationUtility;
 use Auth;
 
 class TreeController extends Controller
@@ -85,6 +86,8 @@ class TreeController extends Controller
         $tree->planted_at   = date('Y-m-d H:i:s');
         
         $tree->save();
+
+        NotificationUtility::sendTreeNotification($tree);
 
         flash(translate('Tree info has been updated successfully'))->success();
         return redirect()->route('trees.index');

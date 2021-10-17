@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Currency;
 use App\Language;
 use App\Order;
+use App\Tree;
 use Session;
 use PDF;
 use Config;
@@ -60,5 +61,16 @@ class InvoiceController extends Controller
             'text_align' => $text_align,
             'not_text_align' => $not_text_align
         ], [], [])->download('order-'.$order->code.'.pdf');
+    }
+
+    public function certificate_download($id)
+    {
+        $font_family = "'Roboto','sans-serif'";
+        $tree = Tree::findOrFail($id);
+        // return view('club_points.frontend.trees.tree_cretificate', compact('tree', 'font_family'));
+        return PDF::loadView('club_points.frontend.trees.tree_cretificate',[
+            'tree' => $tree,
+            'font_family' => $font_family,
+        ], [], [])->download('tree-'.$tree->code.'.pdf');
     }
 }

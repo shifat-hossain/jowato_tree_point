@@ -31,6 +31,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 Route::group(['middleware' => ['user', 'verified']], function(){
     Route::get('user/trees/index', 'TreeController@index')->name('user.trees.index');
     Route::get('tree-location/{id}', 'TreeController@tree_location')->name('user.trees.tree-location');
+    Route::get('certificate-download/{id}', 'InvoiceController@certificate_download')->name('user.trees.certificate-download');
 
     Route::get('earning-points', 'ClubPointController@userpoint_index')->name('earnng_point_for_user');
     Route::post('convert-point-into-wallet', 'ClubPointController@convert_point_into_wallet')->name('convert_point_into_wallet');
