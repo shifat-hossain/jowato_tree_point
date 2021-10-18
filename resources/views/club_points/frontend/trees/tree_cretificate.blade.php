@@ -39,6 +39,20 @@
 		.border-bottom th{
 			border-bottom:1px solid #eceff4;
 		}
+
+		.header-left{
+			float: left;
+			width: 10%;
+			border-right: 10px solid black;
+			border-bottom: 10px solid black;
+			height: 107px;
+		}
+		.header-right{
+			float: left;
+			width: 88.5%;
+			border-bottom: 10px solid black;
+			height: 107px;
+		}
 	</style>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,17 +65,19 @@
 		@php
 			$logo = get_setting('header_logo');
 		@endphp
-		<div style="float: left;width: 15%;border-right: 5px solid black;border-bottom: 5px solid black;height: 70px;">
-			<img src="{{ static_asset('assets/img/tree.jpg') }}" style="display:inline-block;border-right: 3px solid green;border-bottom: 3px solid green;">
+		<div class="header-left">
+			<div style="width: 100%;border-right: 8px solid #86C542;border-bottom: 8px solid #86C542;padding: 5px;">
+				<img src="{{ static_asset('assets/img/tree.png') }}" style="height: 107px;">
+			</div>
 		</div>
-		<div style="float: left;width: 83.5%;border-bottom: 5px solid black;height: 72px;">
+		<div class="header-right">
 			@if($logo != null)
 				<img src="{{ uploaded_asset($logo) }}" height="60" style="display:inline-block;">
 			@else
 				<img src="{{ static_asset('assets/img/logo.png') }}" height="60" style="display:inline-block;">
 			@endif
 		</div>
-		<div style="float: left;width: 15%;text-align: center;border-right: 5px solid black;border-bottom: 5px solid black;height: 100%;">
+		<div style="float: left;width: 10%;text-align: center;border-right: 10px solid black;height: 100%;">
 			<h1 font-size: 20px;>C</h1>
 			<h1 font-size: 20px;>e</h1>
 			<h1 font-size: 20px;>r</h1>
@@ -74,31 +90,34 @@
 			<h1 font-size: 20px;>t</h1>
 			<h1 font-size: 20px;>e</h1>
 		</div>
-		<div style="float: left;width: 83.5%;border-bottom: 5px solid black;height: 100%;">
-			<div style="width: 100%;border-left: 3px solid green;border-top: 3px solid green;height: 100%;">
+		<div style="float: left;width: 88.5%;height: 100%;">
+			<div style="width: 100%;border-left: 8px solid #86C542;border-top: 8px solid #86C542;height: 100%;">
 				<div style="padding: 0px 50px 0px;">
 					<h1 style="text-align: center;">MOTHER'S EARTH SAY'S THANK YOU</h1>
-					<p style="font-size: 25px;margin-bottom: -10px !important;text-align: center;">Shifat hoissain</p>
+					<p style="font-size: 25px;margin-bottom: -10px !important;text-align: center;">
+						{{ $tree->user->name }}
+					</p>
 					<p style="font-size: 20px;margin-top: -10px !important;border-top: 2px solid black">
 						This certificate is awarded to highly respected persons like you, who are visionaries and keepers of tomorrow. 
 						Your choice in shoppinf on Jowato.com is contributing to restoring our lost forest, planting fruit tress for food and sustaining endangered tree spicies
 					</p>
 				</div>
 				<div style="padding: 0px 10px">
-					<p style="font-size: 20px;color: green">
-						Tree ID: 123123213
+					<p style="font-size: 20px;color: #86C542">
+						Tree ID: {{ $tree->code }}
 					</p>
 					
 				</div>
 				<div style="padding: 0px 10px">
-					<p style="font-size: 20px;color: green">
+					<p style="font-size: 20px;color: #86C542">
 						Supported By
 					</p>
 					<p>
-						<img src="{{ static_asset('assets/img/undp.png') }}" style="height: 70px;">
-						<img src="{{ static_asset('assets/img/epa.png') }}" style="height: 70px;">
-						<img src="{{ static_asset('assets/img/tree.jpg') }}" style="height: 70px;">
-						<img src="{{ static_asset('assets/img/tree.jpg') }}" style="height: 70px;">
+						@if (get_setting('supported_by_logos') != null)
+							@foreach (json_decode( get_setting('supported_by_logos'), true) as $key => $value)
+								<img src="{{ uploaded_asset($value) }}" style="height: 70px;">
+							@endforeach
+						@endif
 					</p>
 				</div>
 			</div>

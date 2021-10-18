@@ -70,6 +70,71 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0 h6">{{translate('Supported By Logos In Certificate')}}</h5>
+                </div>
+                <div class="card-body">
+                    <form class="form-horizontal" action="{{ route('business_settings.update') }}" method="POST">
+                        @csrf
+                        <div class="header-nav-menu">
+							<input type="hidden" name="types[]" value="supported_by_logos">
+							@if (get_setting('supported_by_logos') != null)
+								@foreach (json_decode( get_setting('supported_by_logos'), true) as $key => $value)
+									<div class="row gutters-5">
+                                        <label class="col-md-3 col-from-label">{{translate('Supported Logos')}}</label>
+										<div class="col-md-8">
+											<div class="input-group form-group" data-toggle="aizuploader" data-type="image">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text bg-soft-secondary font-weight-medium">{{ translate('Browse') }}</div>
+                                                </div>
+                                                <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                                <input type="hidden" name="supported_by_logos[]" class="selected-files" value="{{ $value }}">
+                                            </div>
+                                            <div class="file-preview"></div>
+										</div>
+										<div class="col-auto">
+											<button type="button" class="mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger" data-toggle="remove-parent" data-parent=".row">
+												<i class="las la-times"></i>
+											</button>
+										</div>
+									</div>
+								@endforeach
+							@endif
+						</div>
+						<button
+							type="button"
+							class="btn btn-soft-secondary btn-sm"
+							data-toggle="add-more"
+							data-content='<div class="row gutters-5">
+                                        <label class="col-md-3 col-from-label">{{translate('Supported Logos')}}</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group form-group" data-toggle="aizuploader" data-type="image">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text bg-soft-secondary font-weight-medium">{{ translate('Browse') }}</div>
+                                                </div>
+                                                <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                                <input type="hidden" name="supported_by_logos[]" class="selected-files">
+                                            </div>
+                                            <div class="file-preview"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="button" class="mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger" data-toggle="remove-parent" data-parent=".row">
+                                                <i class="las la-times"></i>
+                                            </button>
+                                        </div>
+							        </div>'
+							data-target=".header-nav-menu">
+							{{ translate('Add New') }}
+						</button>
+                        <div class="form-group mb-3 text-right">
+							<button type="submit" class="btn btn-sm btn-primary">{{translate('Save')}}</button>
+						</div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

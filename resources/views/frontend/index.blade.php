@@ -288,6 +288,69 @@
 
     </div>
 
+    <div id="statistics">
+        <section class="mb-4">
+            <div class="container">
+                <div class="px-2 py-4 px-md-4 py-md-3 shadow-sm rounded" style="background-color: var(--green)">
+                    <div class="d-flex mb-3 align-items-baseline border-bottom">
+                        <h3 class="h5 fw-700 mb-0">
+                            <span class="border-bottom border-primary border-width-2 pb-3 d-inline-block">
+                                {{ translate('Statistics') }}
+                            </span>
+                        </h3>
+                    </div>
+                    <div class="row no-gutters">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ uploaded_asset(get_setting('trees_planted_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="h1">
+                                        @php
+                                            $n = \App\Tree::count();
+                                            if ($n < 1000000) {
+                                                // Anything less than a million
+                                                $n_format = number_format($n);
+                                            } else if ($n < 1000000000) {
+                                                // Anything less than a billion
+                                                $n_format = number_format($n / 1000000, 2) . 'M';
+                                            } else {
+                                                // At least a billion
+                                                $n_format = number_format($n / 1000000000, 2) . 'B';
+                                            }
+                                            echo $n_format;                        
+                                        @endphp
+                                    </h4>
+                                    <p>
+                                        {{ translate('Tress Planted') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 border-left">
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ uploaded_asset(get_setting('co2_avoided_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="h1">
+                                        @php
+                                            echo \App\Tree::count() * 0.16;        
+                                        @endphp
+                                    </h4>
+                                    <p>
+                                        {{ translate('Tonnes of CO2 avoided') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
     {{-- Top 10 categories and Brands --}}
     @if (get_setting('top10_categories') != null && get_setting('top10_brands') != null)
     <section class="mb-4">

@@ -443,6 +443,62 @@
 				</form>
 			</div>
 		</div>
+		
+		<div class="card">
+			<div class="card-header">
+				<h6 class="mb-0">{{ translate('Statistics') }}</h6>
+			</div>
+			<div class="card-body">
+				<form action="{{ route('business_settings.update') }}" method="POST" enctype="multipart/form-data">
+					@csrf
+					<div class="form-group row">
+						<label class="col-md-2 col-from-label">{{translate('Trees Planted Image')}}</label>
+						<div class="col-md-10">
+							<div class="input-group" data-toggle="aizuploader" data-type="image">
+					            <div class="input-group-prepend">
+					                <div class="input-group-text bg-soft-secondary font-weight-medium">
+										{{ translate('Browse') }}
+									</div>
+					            </div>
+					            <div class="form-control file-amount">
+									{{ translate('Choose File') }}
+								
+								</div>
+								<input type="hidden" name="types[]" value="trees_planted_image">
+					            <input type="hidden" name="trees_planted_image" class="selected-files" value="{{ get_setting('trees_planted_image') }}">
+					        </div>
+					         <div class="file-preview box sm">
+					        </div>
+							<small class="text-muted">{{ translate('100X100 ') }}.png</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-from-label">{{translate('CO2 Avoided Image')}}</label>
+						<div class="col-md-10">
+							<div class="input-group" data-toggle="aizuploader" data-type="image">
+					            <div class="input-group-prepend">
+					                <div class="input-group-text bg-soft-secondary font-weight-medium">
+										{{ translate('Browse') }}
+									</div>
+					            </div>
+					            <div class="form-control file-amount">
+									{{ translate('Choose File') }}
+								</div>
+								
+								<input type="hidden" name="types[]" value="co2_avoided_image">
+					            <input type="hidden" name="co2_avoided_image" class="selected-files" value="{{ get_setting('co2_avoided_image') }}">
+					        </div>
+					         <div class="file-preview box sm">
+					        </div>
+							<small class="text-muted">{{ translate('100X100 ') }}.png</small>
+						</div>
+					</div>
+					<div class="text-right">
+						<button type="submit" class="btn btn-primary">{{ translate('Update') }}</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
 		{{-- Top 10 --}}
 		<div class="card">

@@ -67,10 +67,13 @@ class InvoiceController extends Controller
     {
         $font_family = "'Roboto','sans-serif'";
         $tree = Tree::findOrFail($id);
+        $config = [
+            'format' => 'A4-L' // Landscape
+        ];
         // return view('club_points.frontend.trees.tree_cretificate', compact('tree', 'font_family'));
         return PDF::loadView('club_points.frontend.trees.tree_cretificate',[
             'tree' => $tree,
             'font_family' => $font_family,
-        ], [], [])->download('tree-'.$tree->code.'.pdf');
+        ], [], $config)->download('tree-'.$tree->code.'.pdf');
     }
 }
