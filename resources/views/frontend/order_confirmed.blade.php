@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-xl-8 mx-auto">
                     @php
-                        $first_order = $combined_order->orders->first()
+                        $first_order = $combined_order->orders->first();
                     @endphp
                     <div class="text-center py-4 mb-4">
                         <i class="la la-check-circle la-3x text-success mb-3"></i>
@@ -73,6 +73,10 @@
                                     <tr>
                                         <td class="w-50 fw-600">{{ translate('Shipping address')}}:</td>
                                         <td>{{ json_decode($first_order->shipping_address)->address }}, {{ json_decode($first_order->shipping_address)->city }}, {{ json_decode($first_order->shipping_address)->country }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w-50 fw-600">{{ translate('Tree Points')}}:</td>
+                                        <td>{{ $first_order->club_point->sum('points') }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -186,6 +190,14 @@
                                                         <th>{{ translate('Coupon Discount')}}</th>
                                                         <td class="text-right">
                                                             <span class="font-italic">{{ single_price($order->coupon_discount) }}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong class="text-muted">{{translate('Donation')}} :</strong>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <span class="font-italic">{{ single_price($order->donate_amount) }}</span>
                                                         </td>
                                                     </tr>
                                                     <tr>

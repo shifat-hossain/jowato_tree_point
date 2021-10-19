@@ -92,8 +92,8 @@
 		</div>
 		<div style="float: left;width: 88.5%;height: 100%;">
 			<div style="width: 100%;border-left: 8px solid #86C542;border-top: 8px solid #86C542;height: 100%;">
-				<div style="padding: 0px 50px 0px;">
-					<h1 style="text-align: center;">MOTHER'S EARTH SAY'S THANK YOU</h1>
+				<div style="padding: 0px 80px 0px;">
+					<h1 style="text-align: center;color: #878703">MOTHER'S EARTH SAY'S THANK YOU</h1>
 					<p style="font-size: 25px;margin-bottom: -10px !important;text-align: center;">
 						{{ $tree->user->name }}
 					</p>
@@ -103,19 +103,25 @@
 					</p>
 				</div>
 				<div style="padding: 0px 10px">
-					<p style="font-size: 20px;color: #86C542">
+					<p style="font-size: 20px;margin-bottom: -10px !important;color: #247836">
 						Tree ID: {{ $tree->code }}
 					</p>
-					
+					<p style="font-size: 20px;margin-top: -10px !important;margin-bottom: -10px !important;color: #247836">
+						Tree Location: {{ $tree->location }}
+					</p>
+					<p style="font-size: 20px;margin-top: -10px !important;color: #247836">
+						Care Taker: {{ $tree->caretaker }}
+					</p>
 				</div>
-				<div style="padding: 0px 10px">
-					<p style="font-size: 20px;color: #86C542">
+
+				<div style="padding: 0px 10px;margin: -10px 0 !important;">
+					<p style="font-size: 20px;color: #91911A">
 						Supported By
 					</p>
 					<p>
 						@if (get_setting('supported_by_logos') != null)
 							@foreach (json_decode( get_setting('supported_by_logos'), true) as $key => $value)
-								<img src="{{ uploaded_asset($value) }}" style="height: 70px;">
+								<img src="{{ uploaded_asset($value) }}" style="height: 100px;padding: 0px 10px;">
 							@endforeach
 						@endif
 					</p>

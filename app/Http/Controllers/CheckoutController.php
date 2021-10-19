@@ -18,6 +18,8 @@ use App\Coupon;
 use App\CouponUsage;
 use App\Address;
 use App\CombinedOrder;
+use App\ClubPointDetail;
+use App\ClubPoint;
 use Session;
 use App\Utility\PayhereUtility;
 use App\Utility\NotificationUtility;
@@ -400,7 +402,33 @@ class CheckoutController extends Controller
 
         //Session::forget('club_point');
         //Session::forget('combined_order_id');
-        
+        if (addon_is_activated('club_point')) {
+            foreach ($combined_order->orders as $key => $order) {
+                $club_point_info = ClubPoint::where('user_id', $order->user_id)->where('order_id', $order->id)->first();
+                if(empty($club_point_info)) {
+                    $club_point = new ClubPoint;
+                    $club_point->user_id = $order->user_id;
+                    $club_point->points = 0;
+                    foreach ($order->orderDetails as $key => $orderDetail) {
+                        $total_pts = ($orderDetail->product->earn_point * $orderDetail->quantity) + 
+                                        ($order->donate_amount / get_setting('donate_amount_convert_rate'));
+                        $club_point->points += $total_pts;
+                    }
+
+                    $club_point->order_id = $order->id;
+                    $club_point->save();
+
+                    foreach ($order->orderDetails as $key => $orderDetail) {
+                        $club_point_detail = new ClubPointDetail;
+                        $club_point_detail->club_point_id = $club_point->id;
+                        $club_point_detail->product_id = $orderDetail->product_id;
+                        $club_point_detail->point = ($orderDetail->product->earn_point) * $orderDetail->quantity;
+                        $club_point_detail->save();
+                    }
+                }
+            }
+        }
+
         foreach($combined_order->orders as $order){
             NotificationUtility::sendOrderPlacedNotification($order);
         }

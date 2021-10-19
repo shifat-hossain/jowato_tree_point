@@ -110,15 +110,10 @@ class ClubPointController extends Controller
 
     public function processClubPoints(Order $order)
     {
-        $club_point = new ClubPoint;
-        $club_point->user_id = $order->user_id;
-        $club_point->points = 0;
-
         $user = User::findOrFail($order->user_id);
         foreach ($order->orderDetails as $key => $orderDetail) {
             $total_pts = ($orderDetail->product->earn_point * $orderDetail->quantity) + 
                             ($order->donate_amount / get_setting('donate_amount_convert_rate'));
-            $club_point->points += $total_pts;
             $user->tree_points += $total_pts;
         }
 
@@ -136,17 +131,7 @@ class ClubPointController extends Controller
             }
 
         }
-
-        $club_point->order_id = $order->id;
-        $club_point->save();
-
-        foreach ($order->orderDetails as $key => $orderDetail) {
-            $club_point_detail = new ClubPointDetail;
-            $club_point_detail->club_point_id = $club_point->id;
-            $club_point_detail->product_id = $orderDetail->product_id;
-            $club_point_detail->point = ($orderDetail->product->earn_point) * $orderDetail->quantity;
-            $club_point_detail->save();
-        }
+        
     }
 
     public function club_point_detail($id)
