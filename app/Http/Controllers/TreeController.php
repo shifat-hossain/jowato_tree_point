@@ -113,4 +113,11 @@ class TreeController extends Controller
         $returnHTML = view('club_points.frontend.trees.tree_location_modal', $data)->render();
         return response()->json(array('data' => $data, 'html'=>$returnHTML));
     }
+
+    public function certificate_view($id)
+    {
+        $tree = Tree::findOrFail($id);
+        
+        return view('club_points.frontend.trees.certificate_view', compact('tree'));
+    }
 }

@@ -20,7 +20,7 @@
                             <div class="bg-grad-5 text-white rounded-lg mb-4 overflow-hidden">
                                 <div class="px-3 pt-3">
                                     <div class="h3 fw-700">{{ Auth::user()->tree_points }} {{ translate('Point(s)') }}</div>
-                                    <div class="opacity-50">{{ translate('your tree fund') }}</div>
+                                    <div class="opacity-50">{{ translate('your TREE FUND') }}</div>
                                 </div>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                                     <path fill="rgba(255,255,255,0.3)" fill-opacity="1" d="M0,192L26.7,192C53.3,192,107,192,160,202.7C213.3,213,267,235,320,218.7C373.3,203,427,149,480,117.3C533.3,85,587,75,640,90.7C693.3,107,747,149,800,149.3C853.3,149,907,107,960,112C1013.3,117,1067,171,1120,202.7C1173.3,235,1227,245,1280,213.3C1333.3,181,1387,107,1413,69.3L1440,32L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z"></path>
@@ -40,7 +40,7 @@
                                         <th>{{translate('Latitude')}}</th>
                                         <th>{{translate('Longitude')}}</th>
                                         <th data-breakpoints="lg">{{translate('Planted At')}}</th>
-                                        <th class="text-right" width="10%">{{translate('Options')}}</th>
+                                        <th class="text-right">{{translate('Options')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,6 +61,9 @@
                                             <td>{{ $tree->longitude }}</td>
                                             <td>{{ $tree->planted_at }}</td>
                                             <td class="text-right">
+                                                <a class="btn btn-soft-info btn-icon btn-circle btn-sm" href="{{ route('user.trees.certificate-view', $tree->id) }}" target="_blank" title="{{ translate('See Location') }}">
+                                                    <i class="las la-eye"></i>
+                                                </a>
                                                 <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="http://www.google.com/maps/place/{{ $tree->latitude }},{{ $tree->longitude }}" target="_blank" title="{{ translate('See Location') }}">
                                                     <i class="las la-search-location"></i>
                                                 </a>

@@ -493,6 +493,27 @@
 							<small class="text-muted">{{ translate('100X100 ') }}.png</small>
 						</div>
 					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-from-label">{{translate('Planter Image')}}</label>
+						<div class="col-md-10">
+							<div class="input-group" data-toggle="aizuploader" data-type="image">
+					            <div class="input-group-prepend">
+					                <div class="input-group-text bg-soft-secondary font-weight-medium">
+										{{ translate('Browse') }}
+									</div>
+					            </div>
+					            <div class="form-control file-amount">
+									{{ translate('Choose File') }}
+								</div>
+								
+								<input type="hidden" name="types[]" value="planter_image">
+					            <input type="hidden" name="planter_image" class="selected-files" value="{{ get_setting('planter_image') }}">
+					        </div>
+					         <div class="file-preview box sm">
+					        </div>
+							<small class="text-muted">{{ translate('100X100 ') }}.png</small>
+						</div>
+					</div>
 					<div class="text-right">
 						<button type="submit" class="btn btn-primary">{{ translate('Update') }}</button>
 					</div>

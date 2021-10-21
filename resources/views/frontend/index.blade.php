@@ -301,13 +301,13 @@
                     </div>
                     
                     <div class="row no-gutters">
-                        <div class="col-lg-6 col-md-6">
+                        <div class="col-lg-4 col-md-4">
                             <div class="row">
                                 <div class="col-md-6 text-right">
-                                    <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ uploaded_asset(get_setting('trees_planted_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
+                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('trees_planted_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
                                 </div>
                                 <div class="col-md-6">
-                                    <h4 class="h1">
+                                    <h4 class="h1 text-white">
                                         @php
                                             $n = \App\Tree::count();
                                             if ($n < 1000000) {
@@ -323,25 +323,42 @@
                                             echo $n_format;                        
                                         @endphp
                                     </h4>
-                                    <p>
+                                    <p class=" text-white">
                                         {{ translate('Tress Planted') }}
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 border-left">
+                        <div class="col-lg-4 col-md-4 border-left">
                             <div class="row">
                                 <div class="col-md-6 text-right">
-                                    <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ uploaded_asset(get_setting('co2_avoided_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
+                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('co2_avoided_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
                                 </div>
                                 <div class="col-md-6">
-                                    <h4 class="h1">
+                                    <h4 class="h1 text-white">
                                         @php
                                             echo \App\Tree::count() * 0.16;        
                                         @endphp
                                     </h4>
-                                    <p>
+                                    <p class=" text-white">
                                         {{ translate('Tonnes of CO2 avoided') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 border-left">
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('planter_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="h1 text-white">
+                                        @php
+                                            echo \App\Tree::distinct()->count('user_id');        
+                                        @endphp
+                                    </h4>
+                                    <p class=" text-white">
+                                        {{ translate('Virtual planters') }}
                                     </p>
                                 </div>
                             </div>
