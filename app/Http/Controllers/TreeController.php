@@ -85,6 +85,7 @@ class TreeController extends Controller
         $tree->longitude    = $request->longitude;
         $tree->caretaker    = $request->caretaker;
         $tree->location     = $request->location;
+        $tree->tree_image   = $request->tree_image;
         $tree->planted_at   = date('Y-m-d H:i:s');
         
         $tree->save();

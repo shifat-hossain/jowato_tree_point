@@ -26,7 +26,7 @@
                             <div class="col-lg-3">
                                 <label class="col-from-label">{{translate('Tree Name')}}</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control" name="name" value="{{ $tree->name }}" placeholder="{{translate('Tree name')}}">
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             <div class="col-lg-3">
                                 <label class="col-from-label">{{translate('Latitude')}}</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control" name="latitude" value="{{ $tree->latitude }}" placeholder="{{translate('Latitude')}}" required>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             <div class="col-lg-3">
                                 <label class="col-from-label">{{translate('Longitude')}}</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control" name="longitude" value="{{ $tree->longitude }}" placeholder="{{translate('Longitude')}}" required>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             <div class="col-lg-3">
                                 <label class="col-from-label">{{translate('Caretaker')}}</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control" name="caretaker" value="{{ $tree->caretaker }}" placeholder="{{translate('Caretaker')}}" required>
                             </div>
                         </div>
@@ -58,8 +58,21 @@
                             <div class="col-lg-3">
                                 <label class="col-from-label">{{translate('Location')}}</label>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-9">
                                 <input type="text" class="form-control" name="location" value="{{ $tree->location }}" placeholder="{{translate('Location')}}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">{{translate('Tree Image')}}</label>
+                            <div class="col-md-9">
+                                <div class="input-group form-group" data-toggle="aizuploader" data-type="image">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium">{{ translate('Browse') }}</div>
+                                     </div>
+                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                    <input type="hidden" name="tree_image" class="selected-files" value="{{ $tree->tree_image }}">
+                                </div>
+                                <div class="file-preview"></div>
                             </div>
                         </div>
                         <div class="form-group mb-0 text-right">

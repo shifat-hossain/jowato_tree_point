@@ -289,25 +289,17 @@
     </div>
 
     <div id="statistics">
-        <section class="mb-4">
+        <section class="mb-4 text-white">
             <div class="container">
                 <div class="px-2 py-4 px-md-4 py-md-3 shadow-sm rounded" style="background-color: #295F48">
-                    <div class="d-flex mb-3 align-items-baseline">
-                        <h3 class="h5 fw-700 mb-0">
-                            <span class="border-bottom border-primary border-width-2 pb-3 d-inline-block">
-                                {{ translate('Statistics') }}
-                            </span>
-                        </h3>
-                    </div>
-                    
-                    <div class="row no-gutters">
-                        <div class="col-lg-4 col-md-4">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3">
                             <div class="row">
-                                <div class="col-md-6 text-right">
-                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('trees_planted_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
+                                <div class="col-3">
+                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('trees_planted_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload size-80px">
                                 </div>
-                                <div class="col-md-6">
-                                    <h4 class="h1 text-white">
+                                <div class="col-9">
+                                    <h4 class="h2 fw-700 mb-1">
                                         @php
                                             $n = \App\Tree::count();
                                             if ($n < 1000000) {
@@ -323,42 +315,59 @@
                                             echo $n_format;                        
                                         @endphp
                                     </h4>
-                                    <p class=" text-white">
-                                        {{ translate('Tress Planted') }}
+                                    <p class="opacity-60">
+                                        {{ translate('Trees Planted') }}
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 border-left">
+                        <div class="col-lg-3 col-md-3 border-left border-gray-800">
                             <div class="row">
-                                <div class="col-md-6 text-right">
-                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('co2_avoided_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
+                                <div class="col-3">
+                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('co2_avoided_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload  size-80px mb-2">
                                 </div>
-                                <div class="col-md-6">
-                                    <h4 class="h1 text-white">
+                                <div class="col-9">
+                                    <h4 class="h2 fw-700 mb-1">
                                         @php
                                             echo \App\Tree::count() * 0.16;        
                                         @endphp
                                     </h4>
-                                    <p class=" text-white">
+                                    <p  class="opacity-60">
                                         {{ translate('Tonnes of CO2 avoided') }}
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 border-left">
+                        <div class="col-lg-3 col-md-3 border-left border-gray-800">
                             <div class="row">
-                                <div class="col-md-6 text-right">
-                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('planter_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload">
+                                <div class="col-3">
+                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('planter_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload  size-80px mb-2">
                                 </div>
-                                <div class="col-md-6">
-                                    <h4 class="h1 text-white">
+                                <div class="col-9">
+                                    <h4 class="h2 fw-700 mb-1">
                                         @php
                                             echo \App\Tree::distinct()->count('user_id');        
                                         @endphp
                                     </h4>
-                                    <p class=" text-white">
+                                    <p class="opacity-60">
                                         {{ translate('Virtual planters') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 border-left border-gray-800">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('planter_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload  size-80px mb-2">
+                                </div>
+                                <div class="col-9">
+                                    <h4 class="h2  fw-700 mb-1">
+                                        @php
+                                            echo single_price(\App\ClubPoint::sum('points') + \App\Order::sum('donate_amount'));        
+                                        @endphp
+                                    </h4>
+                                    <p class="opacity-60">
+                                        {{ translate('Tree Fund') }}
                                     </p>
                                 </div>
                             </div>

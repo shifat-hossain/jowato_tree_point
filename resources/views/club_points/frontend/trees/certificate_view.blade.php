@@ -87,30 +87,32 @@
                             <div style="float: left;width: 84.5%;height: 100%;">
                                 <div style="width: 100%;border-left: 8px solid #86C542;border-top: 8px solid #86C542;height: 100%;">
                                     <div style="padding: 0px 80px 0px;">
-                                        <h1 style="text-align: center;color: #878703;padding-top: 22px;">MOTHER'S EARTH SAY'S THANK YOU</h1>
+                                        <h1 style="text-align: center;color: #878703;padding-top: 22px;">
+                                            {{ translate("MOTHER EARTH SAY'S THANK YOU") }}
+                                        </h1>
                                         <p style="font-size: 25px;margin-bottom: 10px !important;text-align: center;">
                                             {{ $tree->user->name }}
                                         </p>
                                         <p style="font-size: 20px;margin-top: -10px !important;border-top: 2px solid black">
-                                            This certificate is awarded to highly respected persons like you, who are visionaries and keepers of tomorrow. 
-                                            Your choice in shoppinf on Jowato.com is contributing to restoring our lost forest, planting fruit tress for food and sustaining endangered tree spicies
+                                            {{ translate("This certificate is awarded to highly respected persons like you, who are visionaries and keepers of tomorrow. 
+                                            Your choice in shoppinf on Jowato.com is contributing to restoring our lost forest, planting fruit tress for food and sustaining endangered tree spicies") }}
                                         </p>
                                     </div>
                                     <div style="padding: 0px 10px">
                                         <p style="font-size: 20px;margin-bottom: 5px !important;color: #247836">
-                                            Tree ID: {{ $tree->code }}
+                                            {{ translate("Tree ID") }}: {{ $tree->code }}
                                         </p>
                                         <p style="font-size: 20px;margin-top: -10px !important;margin-bottom: 5px !important;color: #247836">
-                                            Tree Location: {{ $tree->location }}
+                                            {{ translate("Tree Location") }}: {{ $tree->location }}
                                         </p>
                                         <p style="font-size: 20px;margin-top: -10px !important;color: #247836">
-                                            Care Taker: {{ $tree->caretaker }}
+                                            {{ translate("Care Taker") }}: {{ $tree->caretaker }}
                                         </p>
                                     </div>
 
                                     <div style="padding: 0px 10px;">
                                         <p style="font-size: 20px;color: #91911A">
-                                            Supported By
+                                            {{ translate("Supported By") }}
                                         </p>
                                         <p>
                                             @if (get_setting('supported_by_logos') != null)
