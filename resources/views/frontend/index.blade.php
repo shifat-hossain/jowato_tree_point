@@ -295,10 +295,10 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('trees_planted_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload size-80px">
                                 </div>
-                                <div class="col-9">
+                                <div class="col-8">
                                     <h4 class="h2 fw-700 mb-1">
                                         @php
                                             $n = \App\Tree::count();
@@ -323,10 +323,10 @@
                         </div>
                         <div class="col-lg-3 col-md-3 border-left border-gray-800">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('co2_avoided_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload  size-80px mb-2">
                                 </div>
-                                <div class="col-9">
+                                <div class="col-8">
                                     <h4 class="h2 fw-700 mb-1">
                                         @php
                                             echo \App\Tree::count() * 0.16;        
@@ -340,10 +340,10 @@
                         </div>
                         <div class="col-lg-3 col-md-3 border-left border-gray-800">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('planter_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload  size-80px mb-2">
                                 </div>
-                                <div class="col-9">
+                                <div class="col-8">
                                     <h4 class="h2 fw-700 mb-1">
                                         @php
                                             echo \App\Tree::distinct()->count('user_id');        
@@ -357,13 +357,13 @@
                         </div>
                         <div class="col-lg-3 col-md-3 border-left border-gray-800">
                             <div class="row">
-                                <div class="col-3">
-                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('planter_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload  size-80px mb-2">
+                                <div class="col-4">
+                                    <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset(get_setting('tree_fund_image')) }}" alt="{{ env('APP_NAME') }} promo" class="lazyload  size-80px mb-2">
                                 </div>
-                                <div class="col-9">
+                                <div class="col-8">
                                     <h4 class="h2  fw-700 mb-1">
                                         @php
-                                            echo single_price(\App\ClubPoint::sum('points') + \App\Order::sum('donate_amount'));        
+                                            echo single_price(\App\ClubPoint::where('convert_status', 1)->sum('points') * get_setting('point_multiply'));        
                                         @endphp
                                     </h4>
                                     <p class="opacity-60">

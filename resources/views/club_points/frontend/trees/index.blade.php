@@ -11,7 +11,7 @@
                     <div class="aiz-titlebar mt-2 mb-4">
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <b class="h4">{{translate('Tress')}}</b>
+                                <b class="h4">{{translate('Trees')}}</b>
                             </div>
                         </div>
                     </div>

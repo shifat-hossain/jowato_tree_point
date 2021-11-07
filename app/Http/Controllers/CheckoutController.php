@@ -13,6 +13,7 @@ use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\PublicSslCommerzPaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaytmController;
+use App\Http\Controllers\ClubPointController;
 use App\Order;
 use App\Coupon;
 use App\CouponUsage;
@@ -155,6 +156,9 @@ class CheckoutController extends Controller
             $order->payment_status = 'paid';
             $order->payment_details = $payment;
             $order->save();
+
+            $club_point = new ClubPointController;
+            return $club_point->store_club_point($order);
 
             calculateCommissionAffilationClubPoint($order);
         }
@@ -406,25 +410,8 @@ class CheckoutController extends Controller
             foreach ($combined_order->orders as $key => $order) {
                 $club_point_info = ClubPoint::where('user_id', $order->user_id)->where('order_id', $order->id)->first();
                 if(empty($club_point_info)) {
-                    $club_point = new ClubPoint;
-                    $club_point->user_id = $order->user_id;
-                    $club_point->points = 0;
-                    foreach ($order->orderDetails as $key => $orderDetail) {
-                        $total_pts = ($orderDetail->product->earn_point * $orderDetail->quantity) + 
-                                        ($order->donate_amount / get_setting('donate_amount_convert_rate'));
-                        $club_point->points += $total_pts;
-                    }
-
-                    $club_point->order_id = $order->id;
-                    $club_point->save();
-
-                    foreach ($order->orderDetails as $key => $orderDetail) {
-                        $club_point_detail = new ClubPointDetail;
-                        $club_point_detail->club_point_id = $club_point->id;
-                        $club_point_detail->product_id = $orderDetail->product_id;
-                        $club_point_detail->point = ($orderDetail->product->earn_point) * $orderDetail->quantity;
-                        $club_point_detail->save();
-                    }
+                    $club_point = new ClubPointController;
+                    $club_point->store_club_point($order);
                 }
             }
         }
